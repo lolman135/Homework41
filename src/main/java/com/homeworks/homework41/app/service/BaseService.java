@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface BaseService<T, ID> {
 
-    T create (ID id);
+    T create (List<ID> idList);
     List<T> getAll();
     T getById(ID id);
     T updateById(ID id, T entity);

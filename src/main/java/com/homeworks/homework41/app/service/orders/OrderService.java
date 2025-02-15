@@ -8,7 +8,7 @@ import java.util.List;
 public interface OrderService extends BaseService<Order, Long> {
 
     @Override
-    Order create(Long id);
+    Order create(List<Long> idList);
 
     @Override
     boolean deleteById(Long id);

@@ -9,12 +9,10 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Order {
 
     @Id
@@ -43,7 +41,64 @@ public class Order {
         this.totalCost = calculateTotalCost();
     }
 
+    public Order() {
+    }
+
     private double calculateTotalCost() {
         return products != null ? products.stream().mapToDouble(Product::getPrice).sum() : 0.0;
+    }
+
+    public LocalTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Double.compare(totalCost, order.totalCost) == 0 && Objects.equals(id, order.id) && Objects.equals(products, order.products) && Objects.equals(createdAt, order.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, totalCost, products, createdAt);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "createdAt=" + createdAt +
+                ", id=" + id +
+                ", totalCost=" + totalCost +
+                ", products=" + products +
+                '}';
     }
 }
